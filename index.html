@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="assets/style.css">
+  <script defer src="assets/script.js"></script>
+  <title>Tic Tac Toe</title>
+</head>
+<body>
+  <div class="wrapper">
+    <h1 class="heading">Welcome to Tic Tac Toe</h1>
+    <div class="board"></div>
+    <button onclick="resetGame()" class="btn">Reset Game</button>
+  </div>
+  <dialog class="modal">
+    <section class="modal__content">
+      <h2 class="modal__heading">You Won!</h2>
+      <button onclick="resetGame()" class="btn">Reset Game</button>
+    </section>
+  </dialog>
+</body>
+</html>

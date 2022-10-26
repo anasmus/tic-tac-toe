@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Spectral+SC:wght@400;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Spectral SC', serif;
+    text-align: center;
+    background-color: #1e1e1e;
+}
+
+.wrapper {
+    max-width: 500px;
+    width: 90%;
+    margin: 40px auto;
+}
+
+.heading {
+    color: #ffffff;
+}
+
+.board {
+    display: grid;
+    height: 500px;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    margin-top: 50px;
+    box-shadow: 1px 1px 5px rgba(255, 255, 255, 0.2);
+}
+
+.cell {
+    border: 1px solid #f4f4f4;
+    color: white;
+    background-color: rgba(34, 34, 34, 0.5);
+    display: grid;
+    place-items: center;
+    font-size: 4rem;
+    cursor: pointer;
+}
+
+.cell__text {
+    user-select: none;
+    pointer-events: none;
+}
+
+.btn {
+    margin-block: 2rem;
+    color: white;
+    font-size: 1.5rem;
+    padding: 0.8em 1.5em;
+    border: 1px solid white;
+    border-radius: 5px;
+    background-color: inherit;
+    box-shadow: 0px 2px 5px rgba(255, 255, 255, 0.2);
+    transition: all 150ms ease;
+    cursor: pointer;
+}
+.btn:hover {
+    color: inherit;
+    background-color: white;
+}
+
+.modal {
+    border: 0;
+    background-color: #bdbdbd;
+    max-width: 500px;
+    max-height: 500px;
+    width: 50%;
+    height: 50%;
+    top: calc(50% - min(250px, 25%));
+    left: calc(50% - min(250px, 25%));
+    border-radius: 8px;
+}
+
+.modal__content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.animate {
+    animation: text-show 200ms ease;
+}
+
+@keyframes text-show {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
