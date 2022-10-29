@@ -27,7 +27,7 @@ const displayController = (function () {
 
 const gameController = (function() {
     function gameLoop() {
-        const winner = checkWinner();
+        const winner = checkWinner(gameBoard);
         if (winner) {
             declareWinner(winner);
             return;
@@ -56,11 +56,52 @@ const gameController = (function() {
         playMove(user, index);
     }
     function botMove() {
-        const index = {i: 2, j: 2};
-        playMove(bot, index);
+        let perfectMove = {score: Infinity}
+        for (let i = 0; i < 3; i++) {
+            for (let j = 0; j < 3; j++) {
+                if (gameBoard[i][j] === '') {
+                    let newBoard = [[...gameBoard[0]], [...gameBoard[1]], [...gameBoard[2]]];
+                    newBoard[i][j] = bot.symbol;
+                    let newMove = {score: minimax(newBoard), index: {i, j}};
+                    if (newMove.score < perfectMove.score) {
+                        perfectMove = newMove;
+                    }
+                }
+            }
+        }
+        playMove(bot, perfectMove.index);
     }
 
-    function checkWinner() {
+    function minimax(board, userTurn=true) {
+        const winner = checkWinner(board);
+        if (winner) {
+            switch (winner) {
+                case user.symbol:
+                    return 10;
+                case bot.symbol:
+                    return -10;
+                case 'XO':
+                    return 0;
+            }
+        }
+        let currentScore = (userTurn) ? -Infinity : Infinity;
+        for (let i = 0; i < 3; i++) {
+            for (let j = 0; j < 3; j++) {
+                if (board[i][j] === '') {
+                    let newBoard = [[...board[0]], [...board[1]], [...board[2]]];
+                    newBoard[i][j] = (userTurn) ? user.symbol : bot.symbol;
+                    if (userTurn) {
+                        currentScore = Math.max(minimax(newBoard, !userTurn), currentScore);
+                    } else {
+                        currentScore = Math.min(minimax(newBoard, !userTurn), currentScore);
+                    }
+                }
+            }
+        }
+        return currentScore;
+    }
+
+    function checkWinner(gameBoard) {
         // checking for vertical and horizontal lines
         for (let i = 0; i < 3; i++) {
             if (gameBoard[i][0] == gameBoard[i][1] && gameBoard[i][1] == gameBoard[i][2] && gameBoard[i][2] !== '')
@@ -87,14 +128,24 @@ const gameController = (function() {
     function declareWinner(winner) {
         bot.isTurn = false;
         user.isTurn = false;
-        const cases = {X: 'You Won!', O: 'You Lose!', XO: 'Its a Tie!'};
+        const cases = {[user.symbol]: 'You Won!', [bot.symbol]: 'You Lose!', XO: 'Its a Tie!'};
         document.querySelector('.modal__heading').innerText = cases[winner];
         setTimeout(() => {
             document.querySelector('.modal').showModal();
         }, 500);
     }
 
-    return { userMove };
+    function startGame() {
+        gameBoard = GameBoard();
+        user = Player('O');
+        bot = Player('X');
+        displayController.render();
+        if (bot.isTurn) {
+            setTimeout(botMove, 100);
+        }
+    }
+
+    return { userMove, startGame };
 }());
 
 function Player(symbol) {
@@ -103,18 +154,10 @@ function Player(symbol) {
         isTurn: symbol === 'X'
     }
 }
+
 function GameBoard() {
     return [['', '', ''], ['', '', ''], ['', '', '']];
 }
-function resetGame() {
-    document.querySelector('.modal').close();
-    user.isTurn = true;
-    gameBoard = GameBoard();
-    displayController.render();
-}
 
-const user = Player('X');
-const bot = Player('O');
-let gameBoard = GameBoard();
-displayController.render();
-
+let user, bot, gameBoard;
+gameController.startGame();

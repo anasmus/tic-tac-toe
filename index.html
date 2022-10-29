@@ -13,12 +13,12 @@
   <div class="wrapper">
     <h1 class="heading">Welcome to Tic Tac Toe</h1>
     <div class="board"></div>
-    <button onclick="resetGame()" class="btn">Reset Game</button>
+    <button class="btn" onclick="gameController.startGame()">Reset Game</button>
   </div>
   <dialog class="modal">
     <section class="modal__content">
       <h2 class="modal__heading">You Won!</h2>
-      <button onclick="resetGame()" class="btn">Reset Game</button>
+      <button class="btn" onclick="gameController.startGame(); document.querySelector('.modal').close()">Reset Game</button>
     </section>
   </dialog>
 </body>

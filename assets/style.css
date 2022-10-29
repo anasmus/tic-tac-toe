@@ -73,8 +73,11 @@ body {
     top: calc(50% - min(250px, 25%));
     left: calc(50% - min(250px, 25%));
     border-radius: 8px;
+    box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.5);
 }
-
+.modal::backdrop {
+    background-color: rgba(25, 25, 25, 0.5);
+}
 .modal__content {
     height: 100%;
     display: flex;
