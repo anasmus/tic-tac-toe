@@ -137,8 +137,8 @@ const gameController = (function() {
 
     function startGame() {
         gameBoard = GameBoard();
-        user = Player('O');
-        bot = Player('X');
+        user = Player('X');
+        bot = Player('O');
         displayController.render();
         if (bot.isTurn) {
             setTimeout(botMove, 100);
