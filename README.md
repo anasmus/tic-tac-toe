@@ -2,4 +2,4 @@
 
 Tic Tac Toe Web App using minimax algorithm. 
 
-[Live Demo](https://www.tic-tac-toe-anas.netlify.app) :point_left:
+[Live Demo](https://tic-tac-toe-anas.netlify.app) :point_left:
